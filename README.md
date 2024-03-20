@@ -1,70 +1,70 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# App.js
 
-## Available Scripts
+ 
+```bash
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useRef, useState } from 'react';
+function App() {
+  const inputRef = useRef();
+  const items = [
+    'Apple',
+    'Pinapple',
+    'Watermalone',
+    'Graphs',
+    'Guavava',
+    'Lemon'
+  ]
+  const [filterValue, setFilterValue] = useState(items)
 
-In the project directory, you can run:
+  const handleChange = (e) => {
+    const filter = items.filter((item) => (
+      // item.toLowerCase().indexOf(e.target.value.toLowerCase())!==-1 
+      item.toLowerCase().includes(e.target.value.toLowerCase())
+    ));
+    setFilterValue(filter);
+  }
+  const handleClear = (e) => {
+    setFilterValue(items);
+    inputRef.current.value = '';
+  }
+  return (
+    <div className='mt-5'>
+      <div className='container d-flex flex-column w-50 h-100'>
+        <div className='card shadow '>
+          <div className='card-title '>
+            <h2 className='text-center m-2 fw-bold'>Search Functionality</h2>
 
-### `npm start`
+          </div>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+          <div className='card-body'>
+            <input ref={inputRef} name='search' placeholder='search here...' className='form-control' onChange={handleChange} />
+            <div className='d-flex justify-content-between mt-2'>
+              <small className='text-end'>Fetch <strong>{filterValue.length}</strong> record(s) out of <strong>{items.length}</strong></small>
+              <button className='btn btn-primary btn-sm fw-bold' disabled={filterValue.length !== 0} onClick={handleClear}>Clear</button>
+            </div>
+            <div className='text-center fw-bold'>
+              {filterValue.length === 0 ? (
+                <div>No Record found</div>
+              ) : (
+                filterValue.map((filtered, index) => (
+                  <div key={index}>{filtered}</div>
+                ))
+              )}
+              {/* {filterValue && filterValue.map((filtred)=>(
+                  <div>{filtred}</div>
+                ))}
+                 {filterValue.length === 0 && <div>No Record found</div>}  */}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+export default App;
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
